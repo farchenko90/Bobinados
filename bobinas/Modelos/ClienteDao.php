@@ -11,7 +11,7 @@ class ClienteDao {
         $cli = -1;
         try {
             if($conn->conectar()){
-                $str_sql = "Insert into bobinados.cliente(cedula,nom_cliente,direccion,telefono,fecha_ingre,ciudad,apellido,serial) "
+                $str_sql = "Insert into bobinados.cliente(cedula,nom_cliente,direccion,telefono,fecha_ingre,ciudad,apellido,serial,email) "
                         . "values("
                         ."'".$c->getCedula()."',"
                         ."'".$c->getNom_cliente()."',"
@@ -20,7 +20,8 @@ class ClienteDao {
                         ."'".$c->getFecha_ingre()."',"
                         ."'".$c->getCiudad()."',"
                         ."'".$c->getApellido()."',"
-                        ."'".$c->getSerial()."');";
+                        ."'".$c->getSerial()."',"
+                        ."'".$c->getEmail()."');";
                 $sql  = $conn->getConn()->prepare($str_sql);
                 $cli = $sql->execute();
             }

@@ -8,7 +8,6 @@ $app->get('/bandejacliente/:idcli/:nomb','bandejaentradacliente');
 $app->put('/estado/:idusu/:idcli','estadoVisto');
 $app->delete('/chat/eliminar/:idusu/:user','borrarchat');
 $app->delete('/chatcliente/eliminarcli/:id/:user','borrarchatcliente');
-//$app->get('/contador/:idusu','contador');
 
 function registrarchat(){
     
@@ -107,12 +106,3 @@ function borrarchatcliente($id,$user){
     
 }
 
-/*function contador($idusu){
-    
-    $cDao = new ChatDao();
-    
-    $res = $cDao->cantidadmensajes($idusu);
-    
-    echo json_encode($res, JSON_PRETTY_PRINT);
-    
-}*/

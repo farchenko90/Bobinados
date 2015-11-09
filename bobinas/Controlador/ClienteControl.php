@@ -24,6 +24,7 @@ function registrarcliente(){
     $c->setFecha_ingre($p->Fecha_ingre);
     $c->setCiudad($p->Ciudad);
     $c->setSerial(bin2hex($bytes));
+    $c->setEmail($p->Email);
     $res = $cDao->RegistrarCliente($c);
     
     echo json_encode(array("estados"=>$res));
@@ -40,10 +41,37 @@ function registrarcliente(){
         $us->setTelefono($p->Telefono);
         $us->setPass(bin2hex($bytes));
         $us->setFoto("fotos_perfil.jpg");
-        $us->setEmail("null");
+        $us->setEmail($p->Email);
         $us->setEstado("Activo");
         $us->setIdcliente($maxId->getId_cliente());
         $us->setId_tp_usu('7');
+        
+        $titulo = "Bobinados Del Valle Le Da La Bienvenida";
+    
+    $mensaje = "
+        <html>
+        <head>
+          <title>Usted Se Ha Registrado A Este Sitio</title>
+        </head>
+        <body>
+        <img style='height:60px;' src='' alt=''/>
+          <h1> ¡Se ha registrado Exitosamente!</h1>
+          <p>Gracias por usar nuestros servicios ".$p->Nom_cliente." ".$p->Apellido." </p><br/>
+          <p>Tu usuario es $p->Cedula </p><br/>
+          <p>Tu clave de acceso es ".bin2hex($bytes)." </p><br/>
+          <p>Atentamente</p>
+          <p>Tu equipo de trabajo de Bobinados del Valle</p>
+        </body>
+        </html>
+        ";
+    
+    $cabeceras  = 'MIME-Version: 1.0' . "\r\n";
+    $cabeceras .= 'Content-type: text/html; charset=UTF-8' . "\r\n";
+
+    $cabeceras .= 'To: '.$p->Nom_cliente." ".$p->Apellido.' <'.$p->Email.'>' . "\r\n";
+    $cabeceras .= 'From: Bobinados Del Valle ' . "\r\n";        
+
+    mail($p->Email, $titulo, $mensaje, $cabeceras);
 
         $usuDao->AgregarUsuario($us);
     }

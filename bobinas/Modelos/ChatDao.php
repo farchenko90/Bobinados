@@ -208,26 +208,6 @@ class ChatDao {
         return $res;
     }
 
-    /*public function cantidadmensajes($idusu){
-        $conn = new conexion();
-        $chat = null;
-        try {
-            if($conn->conectar()){
-                $str_sql = "SELECT COUNT(chat.id) cont from chat where chat.idusu = $idusu and chat.estado = 'Enviado'";
-                $sql = $conn->getConn()->prepare($str_sql);
-                $sql->execute();
-                $resultado = $sql->fetchAll();
-                foreach ($resultado as $row){
-                    $chat = array(
-                        "contador"   => $row['cont']    
-                    );
-                }
-            }
-        } catch (Exception $exc) {
-            echo $exc->getTraceAsString();
-        }
-        $conn->desconectar();
-        return $chat;
-    }*/
+    
     
 }

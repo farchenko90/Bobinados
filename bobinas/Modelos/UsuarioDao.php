@@ -565,5 +565,47 @@ class UsuarioDao {
         return $per;
     }
     
+    public function validarcorreo($correo){
+        $conn = new conexion();
+        $user = null;
+        try {
+            if($conn->conectar()){
+                $str_sql = "Select email,id_usu,nom_usu from usuarios where email = '$correo'";
+                $sql = $conn->getConn()->prepare($str_sql);
+                $sql->execute();
+                $resultado = $sql->fetchAll();
+                foreach ($resultado as $row){
+                    $user = array(
+                        "Id"     => $row['id_usu'],
+                        "Nombre" => $row['nom_usu'],
+                        "Id_tipo"=> $row['email']
+                    );
+                }
+            }
+        } catch (Exception $exc) {
+            echo $exc->getTraceAsString();
+        }
+        $conn->desconectar();
+        return $user;
+    }
+    
+    public function cambiarcontrasena(Usuario $usu){
+        $conn = new conexion();
+        $per = -1;
+        try {
+            if($conn->conectar()){
+                $str_sql = "Update usuarios set pass = '".$usu->getPass()."' "
+                    . "where id_usu = ".$usu->getId_usu().";";
+                $sql = $conn->getConn()->prepare($str_sql);
+                $per = $sql->execute();
+            }
+        } catch (Exception $exc) {
+            echo $exc->getMessage();
+        }
+        $conn->desconectar();
+        return $per;
+    }
+    
+    
         
 }

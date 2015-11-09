@@ -11,7 +11,16 @@ class Clientes {
     private $Ciudad;
     private $Apellido;
     private $serial;
+    private $Email;
     
+    function getEmail() {
+        return $this->Email;
+    }
+
+    function setEmail($Email) {
+        $this->Email = $Email;
+    }
+        
     function getSerial() {
         return $this->serial;
     }
