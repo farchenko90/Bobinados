@@ -21,6 +21,37 @@ $app->get('/empleadostrans','empleadotrans');
 $app->put('/cambiartipo','cambiartipo');
 $app->get('/usuario/correo/:correo','validarcorreo');
 $app->put('/usuario/cambiarpass','cambiarclave');
+$app->post('/mensaje','enviarmensaje');
+
+/*
+ * ejemplo de mensaje al correo
+ */
+
+function enviarmensaje(){
+    
+    $r = \Slim\Slim::getInstance()->request(); //pedimos a Slim que nos mande el request
+    $p = json_decode($r->getBody());
+    
+    $mensaje = $p->correo;
+    $asunto = "Bienvenido a Bobinados del valle";
+    
+    require 'phpemail/class.phpmailer.php';
+    $mail = new PHPMailer;
+    $mail->Port = 587;
+    $mail->Host = "localhost";
+    $mail->From = $mensaje;
+    $mail->FromName = "Administrador";
+    $mail->Subject = $asunto;
+    $mail->addAddress($mensaje,$asunto);
+    $mail->msgHTML($asunto);
+    
+    if($mail->send()){
+        echo json_encode($mail);
+    }  else {
+        echo 'Error al enviar email'.$mail->ErrorInfo;
+    }
+    
+}
 
 /*
  * Controlador del inicio sesion del
@@ -127,7 +158,8 @@ function agregarusuario(){
     $cabeceras .= 'Content-type: text/html; charset=UTF-8' . "\r\n";
 
     $cabeceras .= 'To: '.$p->Nom_usu.' <'.$p->Email.'>' . "\r\n";
-    $cabeceras .= 'From: Bobinados Del Valle ' . "\r\n";        
+    $cabeceras .= 'From: Bobinados Del Valle ' . "\r\n";    
+    $cabeceras .= 'X-Mailer:PHP/'.phpversion()."\r\n";    
 
     mail($p->Email, $titulo, $mensaje, $cabeceras);
     
