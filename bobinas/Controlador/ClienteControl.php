@@ -71,7 +71,7 @@ function registrarcliente(){
     $cabeceras .= 'To: '.$p->Nom_cliente." ".$p->Apellido.' <'.$p->Email.'>' . "\r\n";
     $cabeceras .= 'From: Bobinados Del Valle ' . "\r\n";        
 
-    mail($p->Email, $titulo, $mensaje, $cabeceras);
+        mail($p->Email, $titulo, $mensaje, $cabeceras);
 
         $usuDao->AgregarUsuario($us);
     }

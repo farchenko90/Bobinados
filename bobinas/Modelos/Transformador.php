@@ -16,7 +16,16 @@ class Transformador {
     private $Foto;
     private $IdClie_tran;
     private $Idusu_tran;
+    private $Estado3;
     
+    function getEstado3() {
+        return $this->Estado3;
+    }
+
+    function setEstado3($Estado3) {
+        $this->Estado3 = $Estado3;
+    }
+
     function getEstado2() {
         return $this->Estado2;
     }

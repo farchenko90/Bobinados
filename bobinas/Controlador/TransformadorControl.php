@@ -10,9 +10,11 @@ $app->get('/transformador/tablatrab/:id','tablatransformadorempleados');
 $app->get('/transformador/:idcli/:idtra','verdatostransformador');
 $app->get('/transformador/:id','datostransfomador');
 $app->put('/transformador/estado','cambiarestadotrans');
+$app->put('/transformador/estado3','cambiarestado3trans');
 $app->get('/transformadorverdatos/:id','datosdeeliminartransformador');
 $app->put('/transformador/estado2','cambiarestadotranseliminado');
 $app->get('/transformado/historial','tablatransformadoreshistorial');
+$app->get('/transformado/reparacion','tablatransformadoresreparacion');
 
 
 function guardartransformador(){
@@ -155,6 +157,23 @@ function cambiarestadotrans(){
     
 }
 
+function cambiarestado3trans(){
+    
+    $tr = new Transformador();
+    $tDao = new TransformadorDao();
+    
+    $r = \Slim\Slim::getInstance()->request(); //pedimos a Slim que nos mande el request
+    $p = json_decode($r->getBody()); //como el request esta en json lo decodificamos
+    
+    //$tr->setEstado("Terminado");
+    $tr->setId_tran($p->Id_tran);
+    
+    $res = $tDao->cambiarestado3trans($tr);
+    
+    echo json_encode(array("estado"=>$res));
+    
+}
+
 function datosdeeliminartransformador($id){
     
     
@@ -188,6 +207,16 @@ function tablatransformadoreshistorial(){
     $tDao = new TransformadorDao();
     
     $res = $tDao->TablaTransformadoreshistorial();
+    
+    echo json_encode($res, JSON_PRETTY_PRINT);
+    
+}
+
+function tablatransformadoresreparacion(){
+    
+    $tDao = new TransformadorDao();
+    
+    $res = $tDao->transformador_reparacion();
     
     echo json_encode($res, JSON_PRETTY_PRINT);
     

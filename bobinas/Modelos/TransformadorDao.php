@@ -109,7 +109,7 @@ class TransformadorDao {
         $tran = null;
         try {
             if($conn->conectar()){
-                $str_sql = "SELECT transformador.id_tran,transformador.marca_tran,transformador.nplaca_tran,transformador.tipo_acc_tran,
+                $str_sql = "SELECT transformador.id_tran,transformador.marca_tran,transformador.nplaca_tran,transformador.tipo_acc_tran,transformador.estado3,
                     cliente.nom_cliente,cliente.fecha_ingre,transformador.fe_acor_tran,transformador.fe_ter_tran,
                     transformador.estado,transformador.foto ,usuarios.nom_usu from transformador INNER JOIN 
                     usuarios on usuarios.id_usu = transformador.idusu_tran INNER JOIN cliente on 
@@ -128,6 +128,7 @@ class TransformadorDao {
                         "Tipo"          => $row['tipo_acc_tran'],
                         "Estado"        => $row['estado'],
                         "NomUsu"        => $row['nom_usu'],
+                        "Estado3"       => $row['estado3'],
                         "Id"            => $row['id_tran']
                     );
                 }
@@ -290,6 +291,22 @@ class TransformadorDao {
         $conn->desconectar();
         return $tra;
     }
+
+    public function cambiarestado3trans(Transformador $trans){
+        $conn = new conexion();
+        $tra = -1;
+        try {
+            if($conn->conectar()){
+                $str_sql = "Update transformador set estado3='Terminado' where id_tran=".$trans->getId_tran();
+                $sql  = $conn->getConn()->prepare($str_sql);
+                $tra = $sql->execute();
+            }
+        } catch (Exception $exc) {
+            echo $exc->getTraceAsString();
+        }
+        $conn->desconectar();
+        return $tra;
+    }
     
     public function datosdeeliminartransformador($id){
         $conn = new conexion();
@@ -358,6 +375,41 @@ class TransformadorDao {
                         "Tipo"          => $row['tipo_acc_tran'],
                         "Estado"        => $row['estado'],
                         "NomUsu"        => $row['nom_usu'],
+                        "Id"            => $row['id_tran']
+                    );
+                }
+            }
+        } catch (Exception $exc) {
+            echo $exc->getTraceAsString();
+        }
+        $conn->desconectar();
+        return $tran;
+    }
+    
+    function transformador_reparacion(){
+        $conn = new conexion();
+        $tran = null;
+        try {
+            if($conn->conectar()){
+                $str_sql = "SELECT transformador.id_tran,transformador.marca_tran,transformador.nplaca_tran,transformador.tipo_acc_tran,
+                    cliente.nom_cliente,cliente.fecha_ingre,transformador.fe_acor_tran,transformador.fe_ter_tran,
+                    transformador.estado, usuarios.nom_usu,transformador.foto from transformador INNER JOIN 
+                    usuarios on usuarios.id_usu = transformador.idusu_tran INNER JOIN cliente on 
+                    cliente.id = transformador.idclie_tran and transformador.tipo_acc_tran='Reparacion'";
+                $sql = $conn->getConn()->prepare($str_sql);
+                $sql->execute();
+                $resultado = $sql->fetchAll();
+                foreach ($resultado as $row){
+                    $tran[] = array(
+                        "Marca"         => $row['marca_tran'],
+                        "Placa"         => $row['nplaca_tran'],
+                        "NomCliente"    => $row['nom_cliente'],
+                        "Facor"         => $row['fecha_ingre'],
+                        "Fterm"         => $row['fe_ter_tran'],
+                        "Tipo"          => $row['tipo_acc_tran'],
+                        "Estado"        => $row['estado'],
+                        "NomUsu"        => $row['nom_usu'],
+                        "Foto"          => $row['foto'],
                         "Id"            => $row['id_tran']
                     );
                 }

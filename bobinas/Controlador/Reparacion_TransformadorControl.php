@@ -10,6 +10,7 @@ $app->get('/reparacion2/:id','tiporeparacion');
 $app->get('/reparacion/estado/:id1/:id2','reparacionterminado');
 $app->get('/reparacion/datos/:id','reparacionTrans');
 $app->get('/reparacion/cambiar/:id','cambiar');
+$app->get('/repa/primario','getAllprimario');
 
 
 function guardarreparacion(){
@@ -190,4 +191,14 @@ function cambiar($id){
     $res = $rDao->estadoTerminado($id);
     
     echo json_encode($res,JSON_PRETTY_PRINT);
+}
+
+function getAllprimario(){
+    
+    $rDao = new Reparacion_TransformadorDao();
+    
+    $res = $rDao->primarios();
+    
+    echo json_encode($res,JSON_PRETTY_PRINT);
+    
 }

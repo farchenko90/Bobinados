@@ -150,7 +150,7 @@ class Reparacion_TransformadorDao {
             if($conn->conectar()){
                 $str_sql = "SELECT cliente.nom_cliente,cliente.fecha_ingre,reparacion_trans.tipo,transformador.nplaca_tran,"
                         . "reparacion_trans.vsengundario,reparacion_trans.vprimario,reparacion_trans.estado,transformador.id_tran,"
-                        . "reparacion_trans.id_repa,transformador.tipo_acc_tran,usuarios.nom_usu from transformador "
+                        . "reparacion_trans.id_repa,transformador.tipo_acc_tran,usuarios.nom_usu,usuarios.id_tp_usu from transformador "
                         . "INNER JOIN cliente on "
                         . "cliente.id = transformador.idclie_tran INNER JOIN reparacion_trans on "
                         . "reparacion_trans.idtran_repa = transformador.id_tran INNER JOIN usuarios on "
@@ -170,7 +170,8 @@ class Reparacion_TransformadorDao {
                         "segundario"    => $row['vsengundario'],
                         "Estado"        => $row['estado'],
                         "Tipo"          => $row['tipo_acc_tran'],
-                        "Nom_usu"       => $row['nom_usu']
+                        "Nom_usu"       => $row['nom_usu'],
+                        "Id_usu"        => $row['id_tp_usu']
                     );
                 }
             }
@@ -290,6 +291,27 @@ class Reparacion_TransformadorDao {
             echo $exc->getTraceAsString();
         }
         return $rep;
+    }
+    
+    public function primarios(){
+        
+        $conn = new conexion();
+        $rep = null;
+        try {
+            if($conn->conectar()){
+                $str_sql = "Select reparacion_trans.* from reparacion_trans "
+                        . "where tipo = 'Primaria'";
+                $sql = $conn->getConn()->prepare($str_sql);
+                $sql->execute();
+                $resultado = $sql->fetchAll(PDO::FETCH_ASSOC);
+                $rep = $resultado;
+            }
+        } catch (Exception $exc) {
+            echo $exc->getTraceAsString();
+        }
+        $conn->desconectar();
+        return $rep;
+        
     }
     
 }

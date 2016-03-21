@@ -45,7 +45,7 @@ class MotorDao {
         $mot = null;
         try {
             if($conn->conectar()){
-                $str_sql = "SELECT motorl.num_serie_motor,motorl.marca,cliente.nom_cliente,motorl.fe_termi,motorl.id_motores,
+                $str_sql = "SELECT motorl.num_serie_motor,motorl.marca,cliente.nom_cliente,motorl.fe_termi,motorl.id_motores,motorl.hp,motorl.kw,motorl.n_fases,
                     motorl.fe_acord,motorl.estado,motorl.accion,usuarios.nom_usu from motorl INNER JOIN cliente 
                     on cliente.id = motorl.id_cliente INNER JOIN usuarios on usuarios.id_usu = motorl.id_usu and 
                     motorl.estado2 = 'Activo'";
@@ -62,7 +62,10 @@ class MotorDao {
                         "Fe_Acor"   => $row['fe_acord'],
                         "Estado"    => $row['estado'],
                         "Accion"    => $row['accion'],
-                        "Nom_Usu"   => $row['nom_usu']
+                        "Nom_Usu"   => $row['nom_usu'],
+                        "Hp"        => $row['hp'],
+                        "Kw"        => $row['kw'],
+                        "Fases"     => $row['n_fases']
                     );
                 }
             }
@@ -116,7 +119,7 @@ class MotorDao {
         $mot = null;
         try {
             if($conn->conectar()){
-                $str_sql = "SELECT accion,num_serie_motor,estado from motorl where id_motores = '".$id."'";
+                $str_sql = "SELECT accion,num_serie_motor,estado,n_fases from motorl where id_motores = '".$id."'";
                 $sql = $conn->getConn()->prepare($str_sql);
                 $sql->execute();
                 $resultado = $sql->fetchAll();
@@ -124,7 +127,8 @@ class MotorDao {
                     $mot[] = array(
                         "Accion"           => $row['accion'],
                         "Num_serie_motor"  => $row['num_serie_motor'],
-                        "Estado"           => $row['estado']
+                        "Estado"           => $row['estado'],
+                        "Fase"             => $row['n_fases'] 
                     );
                 }
             }
