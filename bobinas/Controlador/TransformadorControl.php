@@ -37,6 +37,7 @@ function guardartransformador(){
     $t->setFoto($p->Foto);
     $t->setIdClie_tran($p->IdClie_tran);
     $t->setIdusu_tran($p->Idusu_tran);
+    $t->setNs($p->Ns);
     
     $res = $tDao->GuardarTrasnformador($t);
     
@@ -63,6 +64,7 @@ function modificartransformador(){
     $t->setFoto($p->Foto);
     $t->setIdusu_tran($p->Idusu_tran);
     $t->setId_tran($p->Id_tran);
+    $t->setNs($p->Ns);
     
     $res = $tDao->modificartransfirmador($t);
     

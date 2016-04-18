@@ -20,7 +20,17 @@ class Motor {
     private $Estado;
     private $Estado2;
     private $Foto;
+    private $Ns;
     
+    function getNs() {
+        return $this->Ns;
+    }
+
+    function setNs($Ns) {
+        $this->Ns = $Ns;
+    }
+
+        
     function getEstado2() {
         return $this->Estado2;
     }

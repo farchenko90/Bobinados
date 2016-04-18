@@ -22,6 +22,10 @@
     include_once 'Modelos/ChatUser.php';
     include_once 'Modelos/TrabajdoresAsignados.php';
     include_once 'Modelos/RebobinadoTrifasico.php';
+    include_once 'Modelos/Marcamotor.php';
+    include_once 'Modelos/Marcatrans.php';
+    include_once 'Modelos/Departamento.php';
+    include_once 'Modelos/Municipio.php';
     
     include_once 'Modelos/UsuarioDao.php';
     include_once 'Modelos/ClienteDao.php';
@@ -40,6 +44,10 @@
     include_once 'Modelos/ChatUserDao.php';
     include_once 'Modelos/TrabajadoresAsignadosDao.php';
     include_once 'Modelos/RebobinadoTrifasicoDao.php';
+    include_once 'Modelos/MarcamotorDao.php';
+    include_once 'Modelos/MarcatransDao.php';
+    include_once 'Modelos/DepartamentoDao.php';
+    include_once 'Modelos/MunicipioDao.php';
     
     include_once 'Controlador/UsuarioControl.php';
     include_once 'Controlador/ClienteControl.php';
@@ -58,5 +66,9 @@
     include_once 'Controlador/ChatUserController.php';
     include_once 'Controlador/TrabajadoresAsiganadosControl.php';
     include_once 'Controlador/RebobinadoTrifasicoControl.php';
+    include_once 'Controlador/MarcamotorControl.php';
+    include_once 'Controlador/MarcatransControl.php';
+    include_once 'Controlador/DepartamentoControl.php';
+    include_once 'Controlador/MunicipioControl.php';
 
     $app->run();

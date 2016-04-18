@@ -105,6 +105,7 @@ function registrarmotor(){
     $m->setEstado("Sin Terminar");
     $m->setEstado2("Activo");
     $m->setFoto($p->Foto);
+    $m->setNs($p->Ns);
     
     $res = $mDao->RegistrarMotor($m);
     
@@ -143,6 +144,7 @@ function modificarmotores(){
     $m->setFoto($p->Foto);
     $m->setId_motores($p->Id_motores);
     $m->setId_usu($p->Id_usu);
+    $m->setNs($p->Ns);
     
     $res = $mDao->ModificarMotores($m);
     

@@ -86,43 +86,45 @@ $pdf->SetFont($letra,'B',$tamaño);
 $pdf->Cell(90,-90,'SERIE DEL MOTOR:  '.$num_serie_motor,0,0,'L');
 $pdf->Cell(90,-90,'MARCA DEL MOTOR:  '.$marca,0,1,'L');
 
-$pdf->Cell(90,110,'HP:  '.$hp,0,0,'L');
-$pdf->Cell(90,110,'KW:  '.$kw,0,1,'L');
+$pdf->Cell(90,100,'HP:  '.$hp,0,0,'L');
+$pdf->Cell(90,100,'KW:  '.$kw,0,1,'L');
 
 $pdf->Cell(90,-90,'RPM:  '.$rpm,0,0,'L');
 $pdf->Cell(90,-90,'# DE FASES:  '.$n_fases,0,1,'L');
 
-$pdf->Cell(90,110,'COTIZADO:  '.$cotizado,0,0,'L');
-$pdf->Cell(90,110,'AUTORIZADO:  '.$autorizado,0,1,'L');
+$pdf->Cell(90,100,'COTIZADO:  '.$cotizado,0,0,'L');
+$pdf->Cell(90,100,'AUTORIZADO:  '.$autorizado,0,1,'L');
 
 $pdf->Cell(90,-90,'ACCIOM:  '.$accion,0,0,'L');
 $pdf->Cell(90,-90,'FECHA TERMINACION:  '.$fe_termi,0,1,'L');
 
-$pdf->Cell(90,110,'ESTADO:  '.$estado,0,0,'L');
+$pdf->Cell(90,100,'ESTADO:  '.$estado,0,0,'L');
+
+$pdf->Ln(180);
 
 $pdf->SetFont($letra,'B',12);
-$pdf->Cell(10,125,'DATOS DEL REBOBINADO DEL MOTOR',0,1,'C');
+$pdf->Cell(180,10,'DATOS DEL REBOBINADO DEL MOTOR',1,1,'C');
 
 $pdf->SetFont($letra,'B',$tamaño);
-$pdf->Cell(90,-90,'V:  '.$v,0,0,'L');
-$pdf->Cell(80,-90,'AM:  '.$am,0,1,'L');
+$pdf->Cell(90,30,'V:  '.$v,0,0,'L');
+$pdf->Cell(80,30,'AM:  '.$am,0,1,'L');
 
-$pdf->Cell(90,110,'BALINERA REFERENCIA:  '.$balineras_ref,0,0,'L');
-$pdf->Cell(90,110,'CAPACITADOR DE MARCHA:  '.$cap_marcha,0,1,'L');
+$pdf->Cell(90,-20,'BALINERA REFERENCIA:  '.$balineras_ref,0,0,'L');
+$pdf->Cell(90,-20,'CAPACITADOR DE MARCHA:  '.$cap_marcha,0,1,'L');
 
-$pdf->Cell(90,-90,'CONEXION:  '.$conexiones,0,0,'L');
-$pdf->Cell(80,-90,'CAPACITADOR ARRANQUE:  '.$cap_arranque,0,1,'L');
+$pdf->Cell(90,30,'CONEXION:  '.$conexiones,0,0,'L');
+$pdf->Cell(80,30,'CAPACITADOR ARRANQUE:  '.$cap_arranque,0,1,'L');
 
-$pdf->Cell(90,110,'SELLO MECANICO:  '.$sello_mecanico,0,0,'L');
-$pdf->Cell(90,110,'ARRANQUE PASO:  '.$arr_paso,0,1,'L');
+$pdf->Cell(90,-20,'SELLO MECANICO:  '.$sello_mecanico,0,0,'L');
+$pdf->Cell(90,-20,'ARRANQUE PASO:  '.$arr_paso,0,1,'L');
 
-$pdf->Cell(90,-90,'ARRANQUE ESPIRAS:  '.$arr_espiras,0,0,'L');
-$pdf->Cell(80,-90,'ARRANQUE PESO POR BOBINA:  '.$arr_peso_por_bobina,0,1,'L');
+$pdf->Cell(90,30,'ARRANQUE ESPIRAS:  '.$arr_espiras,0,0,'L');
+$pdf->Cell(80,30,'ARRANQUE PESO POR BOBINA:  '.$arr_peso_por_bobina,0,1,'L');
 
-$pdf->Cell(90,110,'MARCA DE PASO:  '.$mar_paso,0,0,'L');
-$pdf->Cell(90,110,'MARCA DE ESPIRA:  '.$mar_espira,0,1,'L');
+$pdf->Cell(90,-20,'MARCA DE PASO:  '.$mar_paso,0,0,'L');
+$pdf->Cell(90,-20,'MARCA DE ESPIRA:  '.$mar_espira,0,1,'L');
 
-$pdf->Cell(90,-90,'MARCA DE CALIBRE:  '.$mar_calibre,0,0,'L');
-$pdf->Cell(80,-90,'MARCA PESO POR BOBINA:  '.$mar_peso_por_bobina,0,1,'L');
+$pdf->Cell(90,30,'MARCA DE CALIBRE:  '.$mar_calibre,0,0,'L');
+$pdf->Cell(80,30,'MARCA PESO POR BOBINA:  '.$mar_peso_por_bobina,0,1,'L');
 
 $pdf->Output();

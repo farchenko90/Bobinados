@@ -128,7 +128,7 @@ class Estado_aceite_transDAO {
         $est = -1; 
         try {
             if($conn->conectar()){
-                $str_sql = "Update estado_aceite_trans set estado = 'Terminado' where id_trans = ".$id;
+                $str_sql = "Update estado_aceite_trans set estado = 'Terminado' where id = ".$id;
                 $sql = $conn->getConn()->prepare($str_sql);
                 $est = $sql->execute();
             }

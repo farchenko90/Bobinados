@@ -9,7 +9,7 @@ class TransformadorDao {
         try {
             if($conn->conectar()){
                 $str_sql = "Insert into transformador(marca_tran,nplaca_tran,kva_tran,tp_tran,ts_tran,tipo_acc_tran,"
-                        . "fe_acor_tran,fe_ter_tran,estado,foto,idclie_tran,idusu_tran) values("
+                        . "fe_acor_tran,fe_ter_tran,estado,foto,idclie_tran,idusu_tran,ns) values("
                         ."'".$tra->getMarca_tran()."',"
                         ."'".$tra->getNplaca_tran()."',"
                         ."'".$tra->getKva_tran()."',"
@@ -21,7 +21,8 @@ class TransformadorDao {
                         ."'".$tra->getEstado()."',"
                         ."'".$tra->getFoto()."',"
                         ."".$tra->getIdClie_tran().","
-                        ."".$tra->getIdusu_tran().");";
+                        ."".$tra->getIdusu_tran().","
+                        ."'".$tra->getNs()."');";
                 $sql  = $conn->getConn()->prepare($str_sql);
                 $trans = $sql->execute();
             }
@@ -43,7 +44,7 @@ class TransformadorDao {
                         . "tp_tran='".$tra->getTp_tran()."',ts_tran='".$tra->getTs_tran()."',"
                         . "tipo_acc_tran='".$tra->getTipo_acc_tran()."',fe_acor_tran='".$tra->getFe_acor_tran()."',"
                         . "fe_ter_tran='".$tra->getFe_ter_tran()."',foto='".$tra->getFoto()."', "
-                        . "idusu_tran = ".$tra->getIdusu_tran()." "
+                        . "idusu_tran = ".$tra->getIdusu_tran().",ns = '".$tra->getNs()."' "
                         . "where id_tran= ".$tra->getId_tran()."";
                         
                 $sql  = $conn->getConn()->prepare($str_sql);
@@ -111,6 +112,7 @@ class TransformadorDao {
             if($conn->conectar()){
                 $str_sql = "SELECT transformador.id_tran,transformador.marca_tran,transformador.nplaca_tran,transformador.tipo_acc_tran,transformador.estado3,
                     cliente.nom_cliente,cliente.fecha_ingre,transformador.fe_acor_tran,transformador.fe_ter_tran,
+                    transformador.ns,
                     transformador.estado,transformador.foto ,usuarios.nom_usu from transformador INNER JOIN 
                     usuarios on usuarios.id_usu = transformador.idusu_tran INNER JOIN cliente on 
                     cliente.id = transformador.idclie_tran and transformador.estado2='Activo'";
@@ -129,7 +131,8 @@ class TransformadorDao {
                         "Estado"        => $row['estado'],
                         "NomUsu"        => $row['nom_usu'],
                         "Estado3"       => $row['estado3'],
-                        "Id"            => $row['id_tran']
+                        "Id"            => $row['id_tran'],
+                        "Ns"            => $row['ns']
                     );
                 }
             }
@@ -187,7 +190,7 @@ class TransformadorDao {
                 $str_sql = "SELECT transformador.marca_tran,transformador.nplaca_tran,transformador.kva_tran,"
                         . "transformador.tp_tran, transformador.ts_tran,transformador.tipo_acc_tran,transformador.foto,"
                         . "transformador.fe_acor_tran,transformador.fe_ter_tran, transformador.id_tran,"
-                        . "transformador.estado,transformador.idusu_tran,usuarios.nom_usu "
+                        . "transformador.estado,transformador.idusu_tran,usuarios.nom_usu,transformador.ns "
                         . "from transformador "
                         . "inner join usuarios on usuarios.id_usu = transformador.idusu_tran "
                         . "WHERE transformador.id_tran = ".$id;
@@ -208,7 +211,8 @@ class TransformadorDao {
                         "Fter"          => $row['fe_ter_tran'],
                         "Id"            => $row['id_tran'],
                         "Nomusu"        => $row['nom_usu'],
-                        "Id_usu"        => $row['idusu_tran']
+                        "Id_usu"        => $row['idusu_tran'],
+                        "Ns"            => $row['ns']
                     );
                 }
             }

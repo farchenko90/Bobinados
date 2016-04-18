@@ -154,7 +154,7 @@ class Reparacion_TransformadorDao {
                         . "INNER JOIN cliente on "
                         . "cliente.id = transformador.idclie_tran INNER JOIN reparacion_trans on "
                         . "reparacion_trans.idtran_repa = transformador.id_tran INNER JOIN usuarios on "
-                        . "usuarios.id_usu = transformador.idusu_tran WHERE transformador.id_tran = ".$id;
+                        . "usuarios.id_usu = transformador.idusu_tran WHERE transformador.id_tran = ".$id." ORDER BY reparacion_trans.tipo DESC";
                 $sql = $conn->getConn()->prepare($str_sql);
                 $sql->execute();
                 $resultado = $sql->fetchAll();

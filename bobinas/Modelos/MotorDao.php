@@ -10,7 +10,7 @@ class MotorDao {
         try {
             if($conn->conectar()){
                 $str_sql = "Insert into motorl(num_serie_motor,marca,hp,kw,rpm,n_fases,accion,revicion,cotizado,autorizado,"
-                        . "fe_acord,fe_termi,id_usu,id_cliente,estado,estado2,foto) values("
+                        . "fe_acord,fe_termi,id_usu,id_cliente,estado,estado2,foto,ns) values("
                         ."'".$m->getNum_serie_motor()."',"
                         ."'".$m->getMarca()."',"
                         ."'".$m->getHp()."',"
@@ -27,7 +27,8 @@ class MotorDao {
                         ."".$m->getId_cliente().","
                         ."'".$m->getEstado()."',"
                         ."'".$m->getEstado2()."',"
-                        ."'".$m->getFoto()."');";
+                        ."'".$m->getFoto()."',"
+                        ."'".$m->getNs()."');";
                 $sql  = $conn->getConn()->prepare($str_sql);
                 $mot = $sql->execute();
             }
@@ -45,7 +46,8 @@ class MotorDao {
         $mot = null;
         try {
             if($conn->conectar()){
-                $str_sql = "SELECT motorl.num_serie_motor,motorl.marca,cliente.nom_cliente,motorl.fe_termi,motorl.id_motores,motorl.hp,motorl.kw,motorl.n_fases,
+                $str_sql = "SELECT motorl.num_serie_motor,motorl.marca,cliente.nom_cliente,motorl.fe_termi,
+                    motorl.id_motores,motorl.hp,motorl.kw,motorl.n_fases,motorl.ns,
                     motorl.fe_acord,motorl.estado,motorl.accion,usuarios.nom_usu from motorl INNER JOIN cliente 
                     on cliente.id = motorl.id_cliente INNER JOIN usuarios on usuarios.id_usu = motorl.id_usu and 
                     motorl.estado2 = 'Activo'";
@@ -65,7 +67,8 @@ class MotorDao {
                         "Nom_Usu"   => $row['nom_usu'],
                         "Hp"        => $row['hp'],
                         "Kw"        => $row['kw'],
-                        "Fases"     => $row['n_fases']
+                        "Fases"     => $row['n_fases'],
+                        "NS"        => $row['ns']
                     );
                 }
             }
@@ -84,7 +87,8 @@ class MotorDao {
         try {
             if($conn->conectar()){
                 $str_sql = "SELECT motorl.num_serie_motor,motorl.marca,cliente.nom_cliente,motorl.fe_termi,motorl.id_motores,"
-                        . "motorl.fe_acord,motorl.estado,motorl.accion,usuarios.nom_usu from "
+                        . "motorl.fe_acord,motorl.estado,motorl.accion,usuarios.nom_usu,motorl.n_fases,"
+                        . "motorl.ns from "
                         . "motorl INNER JOIN cliente on cliente.id = motorl.id_cliente and motorl.estado2 = 'Activo' "
                         . "INNER JOIN usuarios on usuarios.id_usu = motorl.id_usu and usuarios.id_usu = ".$id;
                 $sql = $conn->getConn()->prepare($str_sql);
@@ -100,7 +104,9 @@ class MotorDao {
                         "Fe_Acor"       => $row['fe_acord'],
                         "Estado"        => $row['estado'],
                         "Accion"        => $row['accion'],
-                        "Nom_Usu"       => $row['nom_usu']
+                        "Nom_Usu"       => $row['nom_usu'],
+                        "Fases"     => $row['n_fases'],
+                        "NS"        => $row['ns']
                     );
                 }
             }
@@ -145,7 +151,7 @@ class MotorDao {
         try {
             if($conn->conectar()){
                 $str_sql = "SELECT motorl.marca,motorl.hp,motorl.kw,motorl.rpm,motorl.n_fases,motorl.accion,"
-                        . "motorl.revicion,motorl.cotizado, motorl.autorizado,motorl.fe_acord,motorl.fe_termi,"
+                        . "motorl.revicion,motorl.cotizado,motorl.ns,motorl.autorizado,motorl.fe_acord,motorl.fe_termi,"
                         . "usuarios.nom_usu,cliente.nom_cliente,cliente.apellido,cliente.direccion,cliente.ciudad,cliente.telefono,"
                         . "cliente.fecha_ingre as fingreso,cliente.id,cliente.cedula,motorl.foto,usuarios.id_usu from motorl "
                         . "INNER JOIN usuarios on "
@@ -177,7 +183,8 @@ class MotorDao {
                         "Id_cliente" => $row['id'],
                         "Cedula"     => $row['cedula'],
                         "Foto"       => $row['foto'],
-                        "Id_usu"     => $row['id_usu']
+                        "Id_usu"     => $row['id_usu'],
+                        "NS"         => $row['ns']
                     );
                 }
             }
@@ -198,7 +205,7 @@ class MotorDao {
                         . "cotizado=".$m->getCotizado().",autorizado='".$m->getAutorizado()."',"
                         . "accion='".$m->getAccion()."',fe_termi='".$m->getFe_term()."',fe_acord='".$m->getFe_term()."',"
                         . "revicion='".$m->getRevicion()."',foto='".$m->getFoto()."', "
-                        . "id_usu = ".$m->getId_usu()." "
+                        . "id_usu = ".$m->getId_usu().",ns = '".$m->getNs()."'"
                         . "where id_motores = ".$m->getId_motores()."";
                 $sql = $conn->getConn()->prepare($str_sql);
                 $mot = $sql->execute();
@@ -310,7 +317,7 @@ class MotorDao {
         try {
             if($conn->conectar()){
                 $str_sql = "SELECT motorl.num_serie_motor,motorl.marca,cliente.nom_cliente,motorl.fe_termi,motorl.id_motores,
-                    motorl.fe_acord,motorl.estado,motorl.accion,usuarios.nom_usu from motorl INNER JOIN cliente 
+                    motorl.fe_acord,motorl.estado,motorl.accion,usuarios.nom_usu,motorl.n_fases from motorl INNER JOIN cliente 
                     on cliente.id = motorl.id_cliente INNER JOIN usuarios on usuarios.id_usu = motorl.id_usu and 
                     motorl.estado2 = 'Inactivo'";
                 $sql = $conn->getConn()->prepare($str_sql);
@@ -326,7 +333,8 @@ class MotorDao {
                         "Fe_Acor"   => $row['fe_acord'],
                         "Estado"    => $row['estado'],
                         "Accion"    => $row['accion'],
-                        "Nom_Usu"   => $row['nom_usu']
+                        "Nom_Usu"   => $row['nom_usu'],
+                        "Fases"     => $row['n_fases']
                     );
                 }
             }

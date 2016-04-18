@@ -17,7 +17,17 @@ class Transformador {
     private $IdClie_tran;
     private $Idusu_tran;
     private $Estado3;
+    private $Ns;
     
+    function getNs() {
+        return $this->Ns;
+    }
+
+    function setNs($Ns) {
+        $this->Ns = $Ns;
+    }
+
+        
     function getEstado3() {
         return $this->Estado3;
     }
