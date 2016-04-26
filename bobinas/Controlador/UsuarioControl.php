@@ -131,6 +131,7 @@ function agregarusuario(){
     $user->setFoto($p->Foto);
     $user->setEstado("Activo");
     $user->setIdcliente("null");
+    $user->setTipo('Sin Asignar');
     $user->setId_tp_usu($p->Id_tp_usu);
     
     $res = $uDao->AgregarUsuario($user);

@@ -103,7 +103,8 @@ class UsuarioDao {
         $user = -1;
         try {
             if($conn->conectar()){
-                $str_sql = "Insert into usuarios(nom_usu,usuario,cedula,telefono,email,pass,foto,estado,id_tp_usu,idcliente) values("
+                $str_sql = "Insert into usuarios(nom_usu,usuario,cedula,telefono,email,pass,foto,estado,"
+                        . "id_tp_usu,tipo,idcliente) values("
                         ."'".$usu->getNom_usu()."',"
                         ."'".$usu->getUsuario()."',"
                         ."'".$usu->getCedula()."',"
@@ -113,6 +114,7 @@ class UsuarioDao {
                         ."'".$usu->getFoto()."',"
                         ."'".$usu->getEstado()."',"
                         ."".$usu->getId_tp_usu().","
+                        ."'".$usu->getTipo()."',"
                         ."".$usu->getIdcliente().");";
                 $sql  = $conn->getConn()->prepare($str_sql);
                 $user = $sql->execute();
